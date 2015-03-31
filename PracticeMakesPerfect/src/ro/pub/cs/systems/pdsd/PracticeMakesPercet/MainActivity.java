@@ -1,6 +1,7 @@
 package ro.pub.cs.systems.pdsd.PracticeMakesPercet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
+	private final static int SECONDARY_ACTIVITY_REQUEST_CODE = 1;
 	private String race = null;
 	private String color = null;
 	TextView nick;
@@ -26,6 +27,29 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         nick = (TextView) findViewById(R.id.nick);
+        Button bt = (Button) findViewById(R.id.leButon);
+        RadioButton rb11 = (RadioButton) findViewById(R.id.elves);
+        RadioButton rb12 = (RadioButton) findViewById(R.id.orcs);
+        RadioButton rb13 = (RadioButton) findViewById(R.id.humans);
+        RadioButton rb14 = (RadioButton) findViewById(R.id.undead);
+        
+        RadioButton rb01 = (RadioButton) findViewById(R.id.red);
+        RadioButton rb02 = (RadioButton) findViewById(R.id.green);
+        RadioButton rb03 = (RadioButton) findViewById(R.id.blue);
+        RadioButton rb04 = (RadioButton) findViewById(R.id.black);
+        if (savedInstanceState != null) 
+        {
+        	if (savedInstanceState.getBoolean("rb01")) rb01.setChecked(true);
+        	if (savedInstanceState.getBoolean("rb02")) rb02.setChecked(true);
+        	if (savedInstanceState.getBoolean("rb03")) rb03.setChecked(true);
+        	if (savedInstanceState.getBoolean("rb04")) rb04.setChecked(true);
+        	if (savedInstanceState.getBoolean("rb11")) rb11.setChecked(true);
+        	if (savedInstanceState.getBoolean("rb12")) rb12.setChecked(true);
+        	if (savedInstanceState.getBoolean("rb13")) rb13.setChecked(true);
+        	if (savedInstanceState.getBoolean("rb14")) rb14.setChecked(true);
+			
+			nick.setText(savedInstanceState.getString("nick"));
+        }
         TextWatcher wnick = new TextWatcher() {
 			
 			@Override
@@ -59,23 +83,19 @@ public class MainActivity extends Activity {
 			}
 		};
         
-        Button bt = (Button) findViewById(R.id.leButon);
-        RadioButton rb11 = (RadioButton) findViewById(R.id.elves);
-        RadioButton rb12 = (RadioButton) findViewById(R.id.orcs);
-        RadioButton rb13 = (RadioButton) findViewById(R.id.humans);
-        RadioButton rb14 = (RadioButton) findViewById(R.id.undead);
-        
-        RadioButton rb01 = (RadioButton) findViewById(R.id.red);
-        RadioButton rb02 = (RadioButton) findViewById(R.id.green);
-        RadioButton rb03 = (RadioButton) findViewById(R.id.blue);
-        RadioButton rb04 = (RadioButton) findViewById(R.id.black);
+       
         
         bt.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Toast.makeText(MainActivity.this, "return stuff", Toast.LENGTH_LONG).show();
+				//Toast.makeText(MainActivity.this, "return stuff", Toast.LENGTH_LONG).show();
+				Intent i = new Intent (ro.pub.cs.systems.pdsd.PracticeMakesPercet.MainActivity.this, ro.pub.cs.systems.pdsd.PracticeMakesPercet.SecondaryActivity.class);
+				i.putExtra("c_race",race);
+				i.putExtra("c_colo",color);
+				i.putExtra("c_user", nick.getText().toString());
+				startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
 				
 			}
 		});
@@ -196,13 +216,57 @@ public class MainActivity extends Activity {
         nick.addTextChangedListener(wnick);
     }
 
+    @Override
+	  protected void onSaveInstanceState(Bundle savedInstanceState) {
+    	TextView nick1 = (TextView) findViewById(R.id.nick);
+        Button bt = (Button) findViewById(R.id.leButon);
+        RadioButton rb11 = (RadioButton) findViewById(R.id.elves);
+        RadioButton rb12 = (RadioButton) findViewById(R.id.orcs);
+        RadioButton rb13 = (RadioButton) findViewById(R.id.humans);
+        RadioButton rb14 = (RadioButton) findViewById(R.id.undead);
+        
+        RadioButton rb01 = (RadioButton) findViewById(R.id.red);
+        RadioButton rb02 = (RadioButton) findViewById(R.id.green);
+        RadioButton rb03 = (RadioButton) findViewById(R.id.blue);
+        RadioButton rb04 = (RadioButton) findViewById(R.id.black);
+		
+		savedInstanceState.putString("nick", nick1.getText().toString());
+
+		if (rb01.isChecked())
+			savedInstanceState.putBoolean("rb01", true);
+		else savedInstanceState.putBoolean("rb01", false);
+		if (rb03.isChecked())
+			savedInstanceState.putBoolean("rb02", true);
+		else savedInstanceState.putBoolean("rb02", false);
+		if (rb03.isChecked())
+			savedInstanceState.putBoolean("rb03", true);
+		else savedInstanceState.putBoolean("rb03", false);
+		if (rb04.isChecked())
+			savedInstanceState.putBoolean("rb04", true);
+		else savedInstanceState.putBoolean("rb04", false);
+		if (rb11.isChecked())
+			savedInstanceState.putBoolean("rb11", true);
+		else savedInstanceState.putBoolean("rb11", false);
+		if (rb12.isChecked())
+			savedInstanceState.putBoolean("rb12", true);
+		else savedInstanceState.putBoolean("rb12", false);
+		if (rb13.isChecked())
+			savedInstanceState.putBoolean("rb13", true);
+		else savedInstanceState.putBoolean("rb13", false);
+		if (rb14.isChecked())
+			savedInstanceState.putBoolean("rb14", true);
+		else savedInstanceState.putBoolean("rb14", false);
+		
+	  }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        
         return true;
+        
     }
 
     @Override
@@ -217,6 +281,10 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+	  public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	    Toast.makeText(this, "The activity returned with result "+resultCode, Toast.LENGTH_SHORT).show();
+	  }
     
 
 }

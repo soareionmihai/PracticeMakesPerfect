@@ -36,16 +36,18 @@
                     android:id="@+id/red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                  
+                    android:saveEnabled="false"
                     android:text="@string/red" />
 
                 <RadioButton
                     android:id="@+id/green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:saveEnabled="false"
                     android:text="@string/green" />
                 <RadioButton
                     android:id="@+id/blue"
+                    android:saveEnabled="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     
@@ -53,6 +55,7 @@
 
                 <RadioButton
                     android:id="@+id/black"
+                    android:saveEnabled="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     
@@ -76,27 +79,27 @@
                     android:id="@+id/orcs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
+                    android:saveEnabled="false"
                     android:text="@string/orcs" />
 
                 <RadioButton
                     android:id="@+id/humans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
+                    android:saveEnabled="false"
                     android:text="@string/humans" />
                 <RadioButton
                     android:id="@+id/undead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
+                    android:saveEnabled="false"
                     android:text="@string/undead" />
 
                 <RadioButton
                     android:id="@+id/elves"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
+                    android:saveEnabled="false"
                     android:text="@string/elves" />
             </RadioGroup>
 
